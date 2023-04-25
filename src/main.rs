@@ -4,6 +4,8 @@ use ::std::{collections::HashMap, error::Error, process::Command};
 fn main() -> Result<(), Box<dyn Error>> {
     let output = Command::new("ipconfig.exe").output()?.stdout;
     let ip_config_str = iconv::decode(output.as_slice(), "cp936")?;
+    #[cfg(debug_assertions)]
+    println!("{ip_config_str}");
     let section = Regex::new(r"^\S+")?;
     let record = Regex::new(r"^\s+")?;
     let rear_colon = Regex::new(r"^\s*|:\s*$")?;
@@ -33,6 +35,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
         map
     });
+    #[cfg(debug_assertions)]
+    dbg!(&ip_config_pojo);
     if let Some(section) = ip_config_pojo.get("无线局域网适配器 WLAN") {
         if let Some(value) = section.get("IPv4 地址") {
             print!("{value}");

@@ -8,3 +8,6 @@ edition = "2021"
 [dependencies]
 iconv = "0.1.1"
 regex = "1.8.1"
+
+[profile.release]
+panic = "abort"
