@@ -1,7 +1,20 @@
 //! 获取宿主机器的 IP 地址
+use ::clap::Parser;
 use ::regex::Regex;
 use ::std::{collections::HashMap, error::Error, process::Command};
 fn main() -> Result<(), Box<dyn Error>> {
+    /// 获取 wsl 宿主机器的物理 IP 地址
+    #[derive(Parser, Debug)]
+    #[command(author, version, about, long_about = None)]
+    struct CliArgs {
+        /// ipconfig.exe 返回结果中的【主分类】标题
+        #[arg(short, long, default_value_t = String::from("无线局域网适配器 WLAN"))]
+        section: String,
+        /// ipconfig.exe 返回结果中的【主分类】下各个条目的标签名
+        #[arg(short, long, default_value_t = String::from("IPv4 地址"))]
+        entry: String,
+    }
+    let cli_args = CliArgs::parse();
     let output = Command::new("ipconfig.exe").output()?.stdout;
     let ip_config_str = iconv::decode(output.as_slice(), "cp936")?;
     #[cfg(debug_assertions)]
@@ -37,8 +50,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     });
     #[cfg(debug_assertions)]
     dbg!(&ip_config_pojo);
-    if let Some(section) = ip_config_pojo.get("无线局域网适配器 WLAN") {
-        if let Some(value) = section.get("IPv4 地址") {
+    if let Some(section) = ip_config_pojo.get(&cli_args.section[..]) {
+        if let Some(value) = section.get(&cli_args.entry[..]) {
             print!("{value}");
         }
     }
