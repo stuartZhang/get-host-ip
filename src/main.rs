@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         \s*
     ")?;
     let mut last_section_key: Option<String> = None;
-    let ip_config_pojo: HashMap<String, HashMap<String, String>> = ip_config_str.split("\r\n").fold(HashMap::new(), |mut map, line| {
+    let ip_config_pojo = ip_config_str.split("\r\n").fold(HashMap::new(), |mut map, line| {
         if section.is_match(line) {
             let section_key = rear_colon.replace_all(line, "").into_owned();
             map.entry(section_key.clone()).or_insert(HashMap::new());
