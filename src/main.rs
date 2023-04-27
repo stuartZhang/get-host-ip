@@ -36,15 +36,16 @@ fn main() -> Result<(), Box<dyn Error>> {
             map.entry(section_key.clone()).or_insert(HashMap::new());
             last_section_key.replace(section_key);
         } else if record.is_match(line) {
-            if let Some(section_key) = last_section_key.as_ref() {
-                if let Some(sub_map) = map.get_mut(section_key) {
-                    if let Some(groups) = partition.captures(line) {
-                        let key = groups["key"].trim();
-                        let value = &groups["value"];
-                        sub_map.insert(key.to_string(), value.to_string());
-                    }
-                }
-            }
+            last_section_key.as_ref().and_then(|section_key| {
+                map.get_mut(section_key)
+            }).map(|sub_map| {
+                partition.captures(line).map(|groups| {
+                    let key = groups["key"].trim();
+                    let value = &groups["value"];
+                    sub_map.insert(key.to_string(), value.to_string());
+                    ()
+                })
+            });
         }
         map
     });
