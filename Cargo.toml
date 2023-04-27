@@ -2,15 +2,14 @@
 name = "get-host-ip"
 version = "0.1.0"
 edition = "2021"
-author = "stuart zhang<stuartpage@qq.com>"
+authors = ["stuart zhang<stuartpage@qq.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 clap = { version = "4.2.4", features = ["derive"] }
-iconv = "0.1.1"
+iconv-sys = { git = "https://github.com/stuartZhang/rust-iconv", tag = "0.1.2" }
 regex = "1.8.1"
 
 [profile.release]
 panic = "abort"
- 

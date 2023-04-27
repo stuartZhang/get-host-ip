@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
     let cli_args = CliArgs::parse();
     let output = Command::new("ipconfig.exe").output()?.stdout;
-    let ip_config_str = iconv::decode(output.as_slice(), "cp936")?;
+    let ip_config_str = iconv_sys::decode(output.as_slice(), "cp936")?;
     #[cfg(debug_assertions)]
     println!("{ip_config_str}");
     let section = Regex::new(r"^\S+")?;
