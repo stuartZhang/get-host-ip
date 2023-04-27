@@ -43,7 +43,6 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let key = groups["key"].trim();
                     let value = &groups["value"];
                     sub_map.insert(key.to_string(), value.to_string());
-                    ()
                 })
             });
         }
@@ -51,10 +50,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     });
     #[cfg(debug_assertions)]
     dbg!(&ip_config_pojo);
-    if let Some(section) = ip_config_pojo.get(&cli_args.section[..]) {
-        if let Some(value) = section.get(&cli_args.entry[..]) {
-            print!("{value}");
-        }
-    }
+    ip_config_pojo.get(&cli_args.section[..]).and_then(|section| {
+        section.get(&cli_args.entry[..])
+    }).map(|value| {
+        print!("{value}");
+    });
     Ok(())
 }
