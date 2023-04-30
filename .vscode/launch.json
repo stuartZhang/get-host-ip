@@ -5,19 +5,42 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "主程序入口",
+            "name": "运行程序",
             "type": "lldb",
             "request": "launch",
             "console": "internalConsole",
             "sourceLanguages": ["rust"],
             "cargo": {
-                "args": ["build"],
+                "args": [
+                    "build",
+                    "--bins"
+                ],
                 "filter": {
                     "name": "get-host-ip",
                     "kind": "bin"
                 }
             },
             "args": []
+        },
+        {
+            "name": "测试程序",
+            "type": "lldb",
+            "request": "launch",
+            "console": "internalConsole",
+            "sourceLanguages": ["rust"],
+            "cargo": {
+                "args": [
+                    "build",
+                    "--tests"
+                ],
+                "filter": {
+                    "name": "get-host-ip",
+                    "kind": "bin"
+                }
+            },
+            "args": [
+                "--nocapture"
+            ]
         },
         {
             "name": "例程-attach",
