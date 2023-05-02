@@ -1,6 +1,6 @@
 {
     "css.validate": false,
-    "debug.inlineValues": true,
+    "debug.inlineValues": "on",
     "debug.openExplorerOnEnd": true,
     "debug.allowBreakpointsEverywhere": true,
     "editor.detectIndentation": false,
@@ -21,18 +21,16 @@
     "git.ignoreLimitWarning": true,
     "html.validate.scripts": false,
     "javascript.validate.enable": false,
+    "lldb.showDisassembly": "never",
     "projectManager.groupList": true,
-    "projectManager.sortList": "Recent",
     "projectManager.openInNewWindowWhenClickingInStatusBar": true,
-    "rust-analyzer.updates.askBeforeDownload": true,
-    "rust-analyzer.updates.channel": "nightly",
-    "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.diagnostics.disabled": [
         "missing-unsafe"
     ], // 不是 cargo check 的官方错误类型
+    "rust-analyzer.inlayHints.parameterHints.enable": false,
+    "rust-analyzer.procMacro.enable": true,
     "scss.validate": false,
     "workbench.editor.closeOnFileDelete": false,
     "workbench.editor.revealIfOpen": true,
-    "vsicons.presets.angular": false,
-    "rust-analyzer.inlayHints.parameterHints.enable": false
+    "vsicons.presets.angular": false
 }
