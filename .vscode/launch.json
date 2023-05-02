@@ -1,11 +1,11 @@
+// 使用 IntelliSense 了解相关属性。
+// 悬停以查看现有属性的描述。
+// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
 {
-    // 使用 IntelliSense 了解相关属性。
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "运行程序",
+            "name": "可执行程序'get-host-ip'",
             "type": "lldb",
             "request": "launch",
             "console": "internalConsole",
@@ -13,25 +13,29 @@
             "cargo": {
                 "args": [
                     "build",
-                    "--bins"
+                    "--bin=get-host-ip",
+                    "--package=get-host-ip"
                 ],
                 "filter": {
                     "name": "get-host-ip",
                     "kind": "bin"
                 }
             },
-            "args": []
+            "args": [],
+            "cwd": "${workspaceFolder}"
         },
         {
-            "name": "测试程序",
+            "name": "测试程序'get-host-ip'",
             "type": "lldb",
             "request": "launch",
             "console": "internalConsole",
             "sourceLanguages": ["rust"],
             "cargo": {
                 "args": [
-                    "build",
-                    "--tests"
+                    "test",
+                    "--no-run",
+                    "--bin=get-host-ip",
+                    "--package=get-host-ip"
                 ],
                 "filter": {
                     "name": "get-host-ip",
@@ -40,7 +44,8 @@
             },
             "args": [
                 "--nocapture"
-            ]
+            ],
+            "cwd": "${workspaceFolder}"
         },
         {
             "name": "例程-attach",
