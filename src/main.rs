@@ -1,7 +1,5 @@
 //! 获取宿主机器的 IP 地址
 use ::clap::Parser;
-use ::encoding::all::{GB18030, UTF_8};
-use ::encoding::Encoding;
 use ::regex::Regex;
 use ::std::{collections::HashMap, error::Error, process::Command};
 
@@ -22,8 +20,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let r = chardet::detect(&output);
     let en = encoding::label::encoding_from_whatwg_label(chardet::charset2encoding(&r.0))
         .ok_or(format!("无法找到: {} 解码器", r.0))?;
-    let ip_config_str = en
-        .decode(&output, encoding::DecoderTrap::Strict)?;
+    let ip_config_str = en.decode(&output, encoding::DecoderTrap::Strict)?;
     // let ip_config_str = iconv_sys::decode(output.as_slice(), "cp936")?;
     #[cfg(debug_assertions)]
     println!("{ip_config_str}");
